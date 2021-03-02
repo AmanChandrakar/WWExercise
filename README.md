@@ -1,7 +1,7 @@
 **General info**
 WWExcercise is a Java based project and uses Selenium web driver for UI atomation.
-Question1.java is the solution to Qusetion 1.
-Question2.java is the solution to Question 2.
+Excercise1.java is the solution to Qusetion 1.
+Excercise2.java is the solution to Question 2.
 All the external files resides in the relative file of the project.
 	
 **Technologies**
