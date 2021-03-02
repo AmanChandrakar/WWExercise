@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -16,10 +17,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class Question2 {
-	// static String exePath =
-	// "C:\\Users\\chand\\Downloads\\chromedriver_win32\\chromedriver.exe";
-
+public class Question2 
+{
+	
 	static WebDriver driver;
 
 	public static void main(String[] args) throws InterruptedException {
@@ -66,7 +66,7 @@ public class Question2 {
 		 Thread.sleep(1000);
 		 List<WebElement> studios = driver.findElements(By.xpath("//div[@class='container-3SE46']")); //saves all web elements of search results
 		 Thread.sleep(2000);
-		 try
+		 try // try catch block to catch StaleElementReferenceException
 		 {
 			 //Thread.sleep(2000);
 			 WebElement titleWebElement = studios.get(0).findElement(By.cssSelector("div.linkContainer-1NkqM")); //saves web elements for the first's search result studio
@@ -111,7 +111,7 @@ public class Question2 {
 			 System.out.println(title3); // prints title of the page
 			 String studioName = driver.findElement(By.xpath("//h1[contains(@class,'locationName')]")).getText();
 			 if (title1.contentEquals(studioName)) // asserts name
-					System.out.println("Studio name maches");
+					System.out.println("Studio name matches");
 			 else
 					System.out.println("Studio name does not mache");
 			 driver.findElement(By.cssSelector(".hours-IVyrp")).click();
@@ -135,8 +135,9 @@ public class Question2 {
 			}
 
 		}
-		 
-		String todayMeeting = printMeetings("TUE");
+		
+		String dow = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US); // day of week in Mon format
+		String todayMeeting = printMeetings(dow);
 		System.out.println(todayMeeting);
 		driver.close();
 	}
@@ -148,7 +149,7 @@ public class Question2 {
 		List<WebElement> schedules = driver.findElements(By.xpath("//div[@class='day-NhBOb']")); // saves the web elements for all the schedules for every day of week
 		for (WebElement schedule : schedules) {
 			String day = schedule.findElement(By.cssSelector(".dayName-1UpF5")).getText(); // get's day from the list
-			if (day.equals(dayOfTheWeek)) // asserts day matches with day passed in the method
+			if (day.equalsIgnoreCase(dayOfTheWeek)) // asserts day matches with day passed in the method
 			{
 				ArrayList<String> tempList = new ArrayList<String>(); // create an array list object
 				List<WebElement> meetings = schedule.findElements(By.xpath(".//div[@class='meeting-14qIm']")); // saves web element for all meetings in a given day
